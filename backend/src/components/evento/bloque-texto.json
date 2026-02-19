@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_evento_bloque_textos",
+  "info": {
+    "displayName": "BloqueTexto",
+    "icon": "bold"
+  },
+  "options": {},
+  "attributes": {
+    "texto": {
+      "type": "blocks"
+    }
+  },
+  "config": {}
+}

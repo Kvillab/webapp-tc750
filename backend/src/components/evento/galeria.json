@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_evento_galerias",
+  "info": {
+    "displayName": "Galeria",
+    "icon": "landscape"
+  },
+  "options": {},
+  "attributes": {
+    "ImagenConPie": {
+      "type": "component",
+      "component": "evento.imagen-con-pie",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,45 @@
+{
+  "kind": "singleType",
+  "collectionName": "pagina_principals",
+  "info": {
+    "singularName": "pagina-principal",
+    "pluralName": "pagina-principals",
+    "displayName": "Pagina Principal"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroTitulo": {
+      "type": "string"
+    },
+    "heroSubtitulo": {
+      "type": "string"
+    },
+    "heroImagen": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "mision": {
+      "type": "text"
+    },
+    "vision": {
+      "type": "text"
+    },
+    "valores": {
+      "type": "text"
+    },
+    "evento_destacado": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::evento.evento"
+    }
+  }
+}

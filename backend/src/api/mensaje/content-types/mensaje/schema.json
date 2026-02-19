@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mensajes",
+  "info": {
+    "singularName": "mensaje",
+    "pluralName": "mensajes",
+    "displayName": "Mensaje"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "correo": {
+      "type": "email"
+    },
+    "mensaje": {
+      "type": "text"
+    }
+  }
+}

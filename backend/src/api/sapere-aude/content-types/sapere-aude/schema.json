@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "sapere_audes",
+  "info": {
+    "singularName": "sapere-aude",
+    "pluralName": "sapere-audes",
+    "displayName": "Sapere Aude"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "subtitulo": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_evento_aprendizajes_claves",
+  "info": {
+    "displayName": "AprendizajesClave",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "Titulo": {
+      "type": "string"
+    },
+    "aprendizajes": {
+      "type": "blocks"
+    }
+  },
+  "config": {}
+}

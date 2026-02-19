@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "investigaciones",
+  "info": {
+    "singularName": "investigacion",
+    "pluralName": "investigaciones",
+    "displayName": "Investigacion (Sapere Aude)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "contenido": {
+      "type": "blocks"
+    },
+    "fechaPublicacion": {
+      "type": "datetime"
+    },
+    "metodologia": {
+      "type": "enumeration",
+      "enum": [
+        "Mixta (Cualitativa y Cuantitativa)",
+        "Cualitativa",
+        "Cuantitativa"
+      ]
+    },
+    "metricas": {
+      "type": "component",
+      "component": "cantidad.metrica",
+      "repeatable": true
+    },
+    "categoria": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::categoria.categoria"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo"
+    }
+  }
+}

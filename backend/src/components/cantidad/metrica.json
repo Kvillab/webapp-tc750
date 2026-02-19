@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_cantidad_metricas",
+  "info": {
+    "displayName": "Metrica",
+    "icon": "chartCircle"
+  },
+  "options": {},
+  "attributes": {
+    "etiqueta": {
+      "type": "string"
+    },
+    "cantidad": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}

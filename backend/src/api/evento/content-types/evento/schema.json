@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "eventos",
+  "info": {
+    "singularName": "evento",
+    "pluralName": "eventos",
+    "displayName": "Evento (Vida en Acción)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "imagenes": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "fecha": {
+      "type": "datetime"
+    },
+    "ubicacion": {
+      "type": "string"
+    },
+    "metricas": {
+      "type": "component",
+      "component": "cantidad.metrica",
+      "repeatable": true
+    },
+    "categoria": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::categoria.categoria"
+    },
+    "contenido": {
+      "type": "dynamiczone",
+      "components": [
+        "evento.bloque-texto",
+        "evento.galeria",
+        "evento.testimonio",
+        "evento.aprendizajes-clave"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo"
+    }
+  }
+}

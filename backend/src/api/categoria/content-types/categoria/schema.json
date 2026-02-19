@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categorias",
+  "info": {
+    "singularName": "categoria",
+    "pluralName": "categorias",
+    "displayName": "Categoria"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "seccion": {
+      "type": "enumeration",
+      "enum": [
+        "articulo",
+        "investigacion",
+        "evento"
+      ]
+    }
+  }
+}

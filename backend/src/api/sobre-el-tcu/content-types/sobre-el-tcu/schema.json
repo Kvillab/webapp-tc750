@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "sobre_el_tcus",
+  "info": {
+    "singularName": "sobre-el-tcu",
+    "pluralName": "sobre-el-tcus",
+    "displayName": "Sobre el TCU"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "queEs": {
+      "type": "text"
+    },
+    "objetivos": {
+      "type": "text"
+    },
+    "historia": {
+      "type": "text"
+    },
+    "compromiso": {
+      "type": "text"
+    },
+    "participacion": {
+      "type": "text"
+    },
+    "reflexionCritica": {
+      "type": "text"
+    }
+  }
+}

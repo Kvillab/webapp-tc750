@@ -1,0 +1,220 @@
+/* /* Estilos para actividades */ */
+/* .activities-page { */
+/*   max-width: 1200px; */
+/*   margin: 0 auto; */
+/*   padding: 2rem; */
+/* } */
+/**/
+/* .activities-intro { */
+/*   max-width: 800px; */
+/*   margin: 2rem auto; */
+/*   text-align: center; */
+/*   font-size: 1.1rem; */
+/*   color: #555; */
+/* } */
+/**/
+/* .activities-grid { */
+/*   display: grid; */
+/*   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); */
+/*   gap: 2rem; */
+/*   margin-top: 2rem; */
+/* } */
+/**/
+/* .activity-card { */
+/*   background: white; */
+/*   border-radius: 8px; */
+/*   overflow: hidden; */
+/*   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); */
+/*   transition: transform 0.3s; */
+/* } */
+/**/
+/* .activity-card:hover { */
+/*   transform: translateY(-5px); */
+/* } */
+/**/
+/* .activity-image { */
+/*   height: 200px; */
+/*   overflow: hidden; */
+/* } */
+/**/
+/* .activity-image img { */
+/*   width: 100%; */
+/*   height: 100%; */
+/*   object-fit: cover; */
+/*   transition: transform 0.5s; */
+/* } */
+/**/
+/* .activity-content { */
+/*   padding: 1.5rem; */
+/* } */
+/**/
+/* .activity-meta { */
+/*   display: flex; */
+/*   justify-content: space-between; */
+/*   margin-bottom: 0.5rem; */
+/* } */
+/**/
+/* .activity-category { */
+/*   background: var(--light-color); */
+/*   padding: 0.25rem 0.75rem; */
+/*   border-radius: 20px; */
+/*   font-size: 0.9rem; */
+/* } */
+/**/
+/* .activity-details { */
+/*   display: flex; */
+/*   gap: 1rem; */
+/*   margin-top: 1rem; */
+/*   font-size: 0.9rem; */
+/*   color: #666; */
+/* } */
+/**/
+/* /* Página de detalle de actividad */ */
+/* .activity-detail { */
+/*   max-width: 800px; */
+/*   margin: 0 auto; */
+/*   padding: 2rem; */
+/* } */
+/**/
+/* .activity-featured-image { */
+/*   margin: 2rem 0; */
+/*   border-radius: 8px; */
+/*   overflow: hidden; */
+/* } */
+/**/
+/* .activity-featured-image img { */
+/*   width: 100%; */
+/*   height: auto; */
+/* } */
+/**/
+/* .activity-info { */
+/*   background: #f8f9fa; */
+/*   padding: 1.5rem; */
+/*   border-radius: 8px; */
+/*   margin: 1.5rem 0; */
+/*   display: grid; */
+/*   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+/*   gap: 1rem; */
+/* } */
+/**/
+/* .info-item { */
+/*   display: flex; */
+/*   flex-direction: column; */
+/* } */
+/**/
+/* .info-item strong { */
+/*   color: var(--primary-color); */
+/*   margin-bottom: 0.25rem; */
+/* } */
+/**/
+/* .image-gallery { */
+/*   display: grid; */
+/*   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+/*   gap: 1rem; */
+/*   margin: 1.5rem 0; */
+/* } */
+/**/
+/* .image-gallery figure { */
+/*   margin: 0; */
+/* } */
+/**/
+/* .image-gallery img { */
+/*   width: 100%; */
+/*   height: 200px; */
+/*   object-fit: cover; */
+/*   border-radius: 8px; */
+/* } */
+/**/
+/* .image-gallery figcaption { */
+/*   margin-top: 0.5rem; */
+/*   text-align: center; */
+/*   font-size: 0.9rem; */
+/*   color: #666; */
+/* } */
+/**/
+/* .learnings { */
+/*   background: #f8f9fa; */
+/*   padding: 1.5rem; */
+/*   border-radius: 8px; */
+/*   margin: 1.5rem 0; */
+/* } */
+/**/
+/* .learnings h2 { */
+/*   color: var(--primary-color); */
+/*   margin-bottom: 1rem; */
+/* } */
+/**/
+/* .learnings ul { */
+/*   list-style-type: none; */
+/*   padding: 0; */
+/* } */
+/**/
+/* .learnings li { */
+/*   margin-bottom: 0.5rem; */
+/*   padding-left: 1.5rem; */
+/*   position: relative; */
+/* } */
+/**/
+/* .learnings li::before { */
+/*   content: "✓"; */
+/*   position: absolute; */
+/*   left: 0; */
+/*   color: var(--secondary-color); */
+/* } */
+/**/
+/* .testimonials { */
+/*   margin: 2rem 0; */
+/* } */
+/**/
+/* .testimonials blockquote { */
+/*   background: #f8f9fa; */
+/*   padding: 1.5rem; */
+/*   border-radius: 8px; */
+/*   margin: 1rem 0; */
+/*   position: relative; */
+/* } */
+/**/
+/* .testimonials blockquote::before { */
+/*   content: "\201C"; */
+/*   font-size: 4rem; */
+/*   position: absolute; */
+/*   top: -1rem; */
+/*   left: 1rem; */
+/*   color: var(--secondary-color); */
+/*   opacity: 0.2; */
+/* } */
+/**/
+/* .testimonials footer { */
+/*   margin-top: 1rem; */
+/*   display: flex; */
+/*   align-items: center; */
+/*   gap: 0.5rem; */
+/* } */
+/**/
+/* .testimonials footer span { */
+/*   color: #666; */
+/*   font-size: 0.9rem; */
+/* } */
+/**/
+/* .gallery-grid { */
+/*   display: grid; */
+/*   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+/*   gap: 1rem; */
+/*   margin: 1.5rem 0; */
+/* } */
+/**/
+/* .gallery-grid figure { */
+/*   margin: 0; */
+/* } */
+/**/
+/* .gallery-grid img { */
+/*   width: 100%; */
+/*   height: 150px; */
+/*   object-fit: cover; */
+/*   border-radius: 8px; */
+/*   transition: transform 0.3s; */
+/* } */
+/**/
+/* .gallery-grid img:hover { */
+/*   transform: scale(1.05); */
+/* } */

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_evento_imagen_con_pies",
+  "info": {
+    "displayName": "ImagenConPie",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "pie_de_foto": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
