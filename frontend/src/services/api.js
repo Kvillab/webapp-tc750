@@ -76,3 +76,16 @@ export async function getEventos(params = "") {
 export async function getSobreElTcu() {
   return fetchAPI("/sobre-el-tcu");
 }
+
+export async function getProyectos(params = "") {
+  return fetchAPI(
+    `/proyectos?populate[imagenes]=true&populate[categoria]=true&populate[metricas]=true&populate[objetivos]=true&populate[actividades]=true${params}`,
+  );
+}
+
+export async function getProyecto(slug) {
+  const data = await fetchAPI(
+    `/proyectos?filters[slug][$eq]=${slug}&populate[imagenes]=true&populate[categoria]=true&populate[metricas]=true&populate[objetivos]=true&populate[actividades]=true&populate[contenido][on][evento.bloque-texto][populate]=*&populate[contenido][on][evento.galeria][populate][ImagenConPie][populate]=*&populate[contenido][on][evento.testimonio][populate]=*`,
+  );
+  return data[0] || null;
+}

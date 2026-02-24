@@ -19,7 +19,8 @@
       "enum": [
         "articulo",
         "investigacion",
-        "evento"
+        "evento",
+        "proyecto"
       ]
     }
   }

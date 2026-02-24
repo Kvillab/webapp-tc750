@@ -20,6 +20,7 @@ import ArticlesPage from "./pages/ArticlesPage";
 import ArticleDetailPage from "./pages/ArticleDetailPage";
 import EventsPage from "./pages/EventsPage";
 import EventDetailPage from "./pages/EventDetailPage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -36,8 +37,12 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/projects",
+        path: "/proyectos",
         element: <Projects />,
+      },
+      {
+        path: "/proyectos/:slug",
+        element: <ProjectDetailPage />,
       },
       {
         path: "/contact",
