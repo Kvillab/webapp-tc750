@@ -9,6 +9,7 @@ const links = [
   { to: "/explora-y-aprende", label: "Explora y Aprende" },
   { to: "/sapere-aude", label: "Sapere Aude" },
   { to: "/vida-en-accion", label: "Vida en Acción" },
+  { to: "/proyectos", label: "Proyectos" },
   { to: "/calendario", label: "Calendario" },
   { to: "/about", label: "Sobre el TCU" },
   { to: "/contact", label: "Contacto" },

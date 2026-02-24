@@ -517,7 +517,7 @@ export interface ApiCategoriaCategoria extends Struct.CollectionTypeSchema {
     nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     seccion: Schema.Attribute.Enumeration<
-      ['articulo', 'investigacion', 'evento']
+      ['articulo', 'investigacion', 'evento', 'proyecto']
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -803,6 +803,59 @@ export interface ApiPaginaPrincipalPaginaPrincipal
       Schema.Attribute.Private;
     valores: Schema.Attribute.Text;
     vision: Schema.Attribute.Text;
+  };
+}
+
+export interface ApiProyectoProyecto extends Struct.CollectionTypeSchema {
+  collectionName: 'proyectos';
+  info: {
+    displayName: 'Proyecto';
+    pluralName: 'proyectos';
+    singularName: 'proyecto';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    actividades: Schema.Attribute.Component<'proyecto.actividad', true>;
+    categoria: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::categoria.categoria'
+    >;
+    contenido: Schema.Attribute.DynamicZone<
+      ['evento.bloque-texto', 'evento.galeria', 'evento.testimonio']
+    >;
+    coordinador: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.Text;
+    estado: Schema.Attribute.Enumeration<
+      ['activo', 'por_comenzar', 'en_planificacion', 'completado']
+    > &
+      Schema.Attribute.DefaultTo<'en_planificacion'>;
+    fechaFin: Schema.Attribute.Date;
+    fechaInicio: Schema.Attribute.Date;
+    horario: Schema.Attribute.String;
+    imagenes: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::proyecto.proyecto'
+    > &
+      Schema.Attribute.Private;
+    metricas: Schema.Attribute.Component<'cantidad.metrica', true>;
+    objetivos: Schema.Attribute.Component<'proyecto.objetivo', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'titulo'>;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+    ubicacion: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1421,6 +1474,7 @@ declare module '@strapi/strapi' {
       'api::investigacion.investigacion': ApiInvestigacionInvestigacion;
       'api::mensaje.mensaje': ApiMensajeMensaje;
       'api::pagina-principal.pagina-principal': ApiPaginaPrincipalPaginaPrincipal;
+      'api::proyecto.proyecto': ApiProyectoProyecto;
       'api::sapere-aude.sapere-aude': ApiSapereAudeSapereAude;
       'api::sobre-el-tcu.sobre-el-tcu': ApiSobreElTcuSobreElTcu;
       'api::vida-en-accion.vida-en-accion': ApiVidaEnAccionVidaEnAccion;

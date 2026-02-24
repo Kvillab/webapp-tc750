@@ -83,6 +83,28 @@ export interface HeaderLinkNavegacion extends Struct.ComponentSchema {
   };
 }
 
+export interface ProyectoActividad extends Struct.ComponentSchema {
+  collectionName: 'components_proyecto_actividads';
+  info: {
+    displayName: 'Actividad';
+    icon: 'calendar';
+  };
+  attributes: {
+    descripcion: Schema.Attribute.Text;
+  };
+}
+
+export interface ProyectoObjetivo extends Struct.ComponentSchema {
+  collectionName: 'components_proyecto_objetivos';
+  info: {
+    displayName: 'Objetivo';
+    icon: 'bulletList';
+  };
+  attributes: {
+    descripcion: Schema.Attribute.Text;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -93,6 +115,8 @@ declare module '@strapi/strapi' {
       'evento.imagen-con-pie': EventoImagenConPie;
       'evento.testimonio': EventoTestimonio;
       'header.link-navegacion': HeaderLinkNavegacion;
+      'proyecto.actividad': ProyectoActividad;
+      'proyecto.objetivo': ProyectoObjetivo;
     }
   }
 }

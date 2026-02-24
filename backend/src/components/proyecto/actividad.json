@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_proyecto_actividads",
+  "info": {
+    "displayName": "Actividad",
+    "icon": "calendar"
+  },
+  "options": {},
+  "attributes": {
+    "descripcion": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

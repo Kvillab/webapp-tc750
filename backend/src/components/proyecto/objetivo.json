@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_proyecto_objetivos",
+  "info": {
+    "displayName": "Objetivo",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "descripcion": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

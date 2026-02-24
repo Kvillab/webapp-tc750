@@ -1,0 +1,79 @@
+{
+  "kind": "collectionType",
+  "collectionName": "proyectos",
+  "info": {
+    "singularName": "proyecto",
+    "pluralName": "proyectos",
+    "displayName": "Proyecto"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "imagenes": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": ["activo", "por_comenzar", "en_planificacion", "completado"],
+      "default": "en_planificacion"
+    },
+    "ubicacion": {
+      "type": "string"
+    },
+    "coordinador": {
+      "type": "string"
+    },
+    "horario": {
+      "type": "string"
+    },
+    "fechaInicio": {
+      "type": "date"
+    },
+    "fechaFin": {
+      "type": "date"
+    },
+    "objetivos": {
+      "type": "component",
+      "component": "proyecto.objetivo",
+      "repeatable": true
+    },
+    "actividades": {
+      "type": "component",
+      "component": "proyecto.actividad",
+      "repeatable": true
+    },
+    "metricas": {
+      "type": "component",
+      "component": "cantidad.metrica",
+      "repeatable": true
+    },
+    "categoria": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::categoria.categoria"
+    },
+    "contenido": {
+      "type": "dynamiczone",
+      "components": [
+        "evento.bloque-texto",
+        "evento.galeria",
+        "evento.testimonio"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo"
+    }
+  }
+}
