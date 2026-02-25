@@ -21,6 +21,10 @@ import ArticleDetailPage from "./pages/ArticleDetailPage";
 import EventsPage from "./pages/EventsPage";
 import EventDetailPage from "./pages/EventDetailPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
+import TestimonialsPage from "./pages/TestimonialsPage";
+import ImpactPage from "./pages/ImpactPage";
+import ImpactDetailPage from "./pages/ImpactDetailPage";
+import ManualPage from "./pages/ManualPage";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +79,22 @@ const router = createBrowserRouter([
       {
         path: "/podcast",
         element: <Podcast />,
+      },
+      {
+        path: "/mi-experiencia",
+        element: <TestimonialsPage />,
+      },
+      {
+        path: "/impacto-comunal",
+        element: <ImpactPage />,
+      },
+      {
+        path: "/impacto-comunal/:slug",
+        element: <ImpactDetailPage />,
+      },
+      {
+        path: "/manual-estudiante",
+        element: <ManualPage />,
       },
       {
         path: "/vida-en-accion",

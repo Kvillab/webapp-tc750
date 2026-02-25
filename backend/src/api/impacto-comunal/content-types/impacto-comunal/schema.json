@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "impacto_comunals",
+  "info": {
+    "singularName": "impacto-comunal",
+    "pluralName": "impacto-comunals",
+    "displayName": "Impacto Comunal"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "metricas": {
+      "type": "component",
+      "component": "cantidad.metrica",
+      "repeatable": true
+    }
+  }
+}

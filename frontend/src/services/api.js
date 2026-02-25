@@ -89,3 +89,32 @@ export async function getProyecto(slug) {
   );
   return data[0] || null;
 }
+
+export async function getTestimonios() {
+  return fetchAPI("/testimonio-estudiantes?populate=*");
+}
+
+export async function getImpactoComunal() {
+  return fetchAPI("/impacto-comunal?populate[metricas]=true");
+}
+
+export async function getCasosImpacto() {
+  return fetchAPI(
+    "/caso-impactos?populate[imagen]=true&populate[metricas]=true",
+  );
+}
+
+export async function getCasoImpacto(slug) {
+  const data = await fetchAPI(
+    `/caso-impactos?filters[slug][$eq]=${slug}&populate=*`,
+  );
+  return data[0] || null;
+}
+
+export async function getManualEstudiante() {
+  return fetchAPI("/manual-estudiante?populate=*");
+}
+
+export async function getEpisodios() {
+  return fetchAPI("/episodios?populate=*&sort=fecha:desc");
+}

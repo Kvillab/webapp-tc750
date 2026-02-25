@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "caso_impactos",
+  "info": {
+    "singularName": "caso-impacto",
+    "pluralName": "caso-impactos",
+    "displayName": "Caso de Impacto"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "comunidad": {
+      "type": "string"
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "metricas": {
+      "type": "component",
+      "component": "cantidad.metrica",
+      "repeatable": true
+    },
+    "contenido": {
+      "type": "blocks"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo"
+    }
+  }
+}

@@ -494,6 +494,40 @@ export interface ApiAutorAutor extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCasoImpactoCasoImpacto extends Struct.CollectionTypeSchema {
+  collectionName: 'caso_impactos';
+  info: {
+    displayName: 'Caso de Impacto';
+    pluralName: 'caso-impactos';
+    singularName: 'caso-impacto';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    comunidad: Schema.Attribute.String;
+    contenido: Schema.Attribute.Blocks;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.Text;
+    imagen: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::caso-impacto.caso-impacto'
+    > &
+      Schema.Attribute.Private;
+    metricas: Schema.Attribute.Component<'cantidad.metrica', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'titulo'>;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCategoriaCategoria extends Struct.CollectionTypeSchema {
   collectionName: 'categorias';
   info: {
@@ -548,6 +582,39 @@ export interface ApiContactoContacto extends Struct.SingleTypeSchema {
     piePagina: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     titulo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEpisodioEpisodio extends Struct.CollectionTypeSchema {
+  collectionName: 'episodios';
+  info: {
+    displayName: 'Episodio (Podcast)';
+    pluralName: 'episodios';
+    singularName: 'episodio';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.Text;
+    detalles: Schema.Attribute.Text;
+    fecha: Schema.Attribute.Date;
+    imagen: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::episodio.episodio'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    spotifyUrl: Schema.Attribute.String;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -694,6 +761,37 @@ export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiImpactoComunalImpactoComunal
+  extends Struct.SingleTypeSchema {
+  collectionName: 'impacto_comunals';
+  info: {
+    displayName: 'Impacto Comunal';
+    pluralName: 'impacto-comunals';
+    singularName: 'impacto-comunal';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::impacto-comunal.impacto-comunal'
+    > &
+      Schema.Attribute.Private;
+    metricas: Schema.Attribute.Component<'cantidad.metrica', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    titulo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiInvestigacionInvestigacion
   extends Struct.CollectionTypeSchema {
   collectionName: 'investigaciones';
@@ -728,6 +826,38 @@ export interface ApiInvestigacionInvestigacion
     metricas: Schema.Attribute.Component<'cantidad.metrica', true>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'titulo'>;
+    titulo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiManualEstudianteManualEstudiante
+  extends Struct.SingleTypeSchema {
+  collectionName: 'manual_estudiantes';
+  info: {
+    displayName: 'Manual Estudiante';
+    pluralName: 'manual-estudiantes';
+    singularName: 'manual-estudiante';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    archivo: Schema.Attribute.Media<'files'>;
+    contenido: Schema.Attribute.Blocks;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::manual-estudiante.manual-estudiante'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     titulo: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -916,6 +1046,39 @@ export interface ApiSobreElTcuSobreElTcu extends Struct.SingleTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     queEs: Schema.Attribute.Text;
     reflexionCritica: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTestimonioEstudianteTestimonioEstudiante
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'testimonio_estudiantes';
+  info: {
+    displayName: 'Testimonio Estudiante';
+    pluralName: 'testimonio-estudiantes';
+    singularName: 'testimonio-estudiante';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    anio: Schema.Attribute.String;
+    cita: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    foto: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::testimonio-estudiante.testimonio-estudiante'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    rol: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1465,18 +1628,23 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::articulo.articulo': ApiArticuloArticulo;
       'api::autor.autor': ApiAutorAutor;
+      'api::caso-impacto.caso-impacto': ApiCasoImpactoCasoImpacto;
       'api::categoria.categoria': ApiCategoriaCategoria;
       'api::contacto.contacto': ApiContactoContacto;
+      'api::episodio.episodio': ApiEpisodioEpisodio;
       'api::evento.evento': ApiEventoEvento;
       'api::explora-y-aprende.explora-y-aprende': ApiExploraYAprendeExploraYAprende;
       'api::footer.footer': ApiFooterFooter;
       'api::header.header': ApiHeaderHeader;
+      'api::impacto-comunal.impacto-comunal': ApiImpactoComunalImpactoComunal;
       'api::investigacion.investigacion': ApiInvestigacionInvestigacion;
+      'api::manual-estudiante.manual-estudiante': ApiManualEstudianteManualEstudiante;
       'api::mensaje.mensaje': ApiMensajeMensaje;
       'api::pagina-principal.pagina-principal': ApiPaginaPrincipalPaginaPrincipal;
       'api::proyecto.proyecto': ApiProyectoProyecto;
       'api::sapere-aude.sapere-aude': ApiSapereAudeSapereAude;
       'api::sobre-el-tcu.sobre-el-tcu': ApiSobreElTcuSobreElTcu;
+      'api::testimonio-estudiante.testimonio-estudiante': ApiTestimonioEstudianteTestimonioEstudiante;
       'api::vida-en-accion.vida-en-accion': ApiVidaEnAccionVidaEnAccion;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

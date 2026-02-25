@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 import { getHeader } from "../services/api";
 
 const BASE_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
@@ -9,21 +10,53 @@ const links = [
   { to: "/explora-y-aprende", label: "Explora y Aprende" },
   { to: "/sapere-aude", label: "Sapere Aude" },
   { to: "/vida-en-accion", label: "Vida en Acción" },
+];
+
+const communityLinks = [
   { to: "/proyectos", label: "Proyectos" },
+  { to: "/mi-experiencia", label: "Mi Experiencia en el TCU" },
+  { to: "/impacto-comunal", label: "Impacto Comunal" },
+  { to: "/manual-estudiante", label: "Manual Estudiante" },
+  { to: "/podcast", label: "Podcast" },
+];
+
+const afterLinks = [
   { to: "/calendario", label: "Calendario" },
   { to: "/about", label: "Sobre el TCU" },
   { to: "/contact", label: "Contacto" },
 ];
 
+const allMobileLinks = [...links, ...communityLinks, ...afterLinks];
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [communityOpen, setCommunityOpen] = useState(false);
   const [header, setHeader] = useState(null);
+  const dropdownRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     getHeader()
       .then(setHeader)
       .catch(() => {});
   }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setCommunityOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Close dropdown on route change
+  useEffect(() => {
+    setCommunityOpen(false);
+    setOpen(false);
+  }, [location.pathname]);
 
   const logoUrl = header?.logo?.url
     ? header.logo.url.startsWith("http")
@@ -32,6 +65,10 @@ const Navbar = () => {
     : null;
 
   const siteName = header?.nombreSitio ?? "TC-750";
+
+  const isCommunityActive = communityLinks.some(
+    (l) => location.pathname === l.to || location.pathname.startsWith(l.to + "/"),
+  );
 
   return (
     <nav className="bg-[#fec134]">
@@ -71,6 +108,62 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
+
+          {/* Dropdown Comunidad */}
+          <li className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setCommunityOpen((v) => !v)}
+              className={`flex gap-1 items-center px-3 py-2 text-sm transition-colors ${
+                isCommunityActive
+                  ? "font-bold text-gray-900"
+                  : "font-medium text-gray-800 hover:text-gray-900"
+              }`}
+            >
+              Comunidad
+              <ChevronDown
+                size={14}
+                className={`transition-transform ${communityOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {communityOpen && (
+              <ul className="absolute left-0 z-50 py-2 mt-1 w-56 bg-white rounded-lg border border-gray-200 shadow-lg">
+                {communityLinks.map(({ to, label }) => (
+                  <li key={to}>
+                    <NavLink
+                      to={to}
+                      className={({ isActive }) =>
+                        `block py-2 px-4 text-sm transition-colors ${
+                          isActive
+                            ? "font-bold text-[#ed741b] bg-orange-50"
+                            : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                        }`
+                      }
+                    >
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+
+          {afterLinks.map(({ to, label }) => (
+            <li key={to}>
+              <NavLink
+                to={to}
+                className={({ isActive }) =>
+                  `px-3 py-2 text-sm transition-colors ${
+                    isActive
+                      ? "font-bold text-gray-900"
+                      : "font-medium text-gray-800 hover:text-gray-900"
+                  }`
+                }
+              >
+                {label}
+              </NavLink>
+            </li>
+          ))}
         </ul>
 
         {/* Hamburguesa */}
@@ -91,10 +184,10 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Menú móvil */}
+      {/* Menú móvil — todos los links planos */}
       {open && (
         <ul className="flex flex-col px-6 pt-2 pb-4 border-t border-yellow-300 lg:hidden">
-          {links.map(({ to, label }) => (
+          {allMobileLinks.map(({ to, label }) => (
             <li key={to}>
               <NavLink
                 to={to}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Calendar,
@@ -8,60 +8,18 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { getEventos } from "../services/api";
 
-const EVENTOS_EJEMPLO = [
-  {
-    id: 1,
-    titulo: "Taller sobre Derechos Educativos",
-    descripcion:
-      "Taller participativo sobre derechos educativos con la comunidad",
-    fecha: "2026-02-21T09:00:00",
-    ubicacion: "Comunidad de Santa Ana",
-    categoria: "Taller",
-  },
-  {
-    id: 2,
-    titulo: "Foro de Educación Popular",
-    descripcion: "Espacio de diálogo sobre educación popular en Costa Rica",
-    fecha: "2026-02-28T14:00:00",
-    ubicacion: "Universidad de Costa Rica",
-    categoria: "Foro",
-  },
-  {
-    id: 3,
-    titulo: "Conferencia: Derecho a la Educación",
-    descripcion:
-      "Conferencia magistral sobre el derecho a la educación pública",
-    fecha: "2026-03-05T10:00:00",
-    ubicacion: "Auditorio de Derecho, UCR",
-    categoria: "Conferencia",
-  },
-  {
-    id: 4,
-    titulo: "Reunión de planificación semestral",
-    descripcion: "Planificación de actividades del segundo semestre",
-    fecha: "2026-03-12T16:00:00",
-    ubicacion: "Sede del TCU",
-    categoria: "Reunión",
-  },
-  {
-    id: 5,
-    titulo: "Taller de Materiales Educativos",
-    descripcion: "Creación colectiva de materiales para comunidades",
-    fecha: "2026-03-20T09:00:00",
-    ubicacion: "Escuela de Santa Ana",
-    categoria: "Taller",
-  },
+const CATEGORIA_COLORS_DEFAULT = [
+  "#4fb9ab",
+  "#ed741b",
+  "#2563eb",
+  "#fec134",
+  "#8b5cf6",
+  "#ec4899",
+  "#10b981",
+  "#f97316",
 ];
-
-const CATEGORIAS = ["Taller", "Foro", "Conferencia", "Reunión"];
-
-const CATEGORIA_COLORS = {
-  Taller: "#4fb9ab",
-  Foro: "#ed741b",
-  Conferencia: "#2563eb",
-  Reunión: "#fec134",
-};
 
 const MESES = [
   "Enero",
@@ -79,10 +37,31 @@ const MESES = [
 ];
 
 const CalendarPage = () => {
+  const [eventos, setEventos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [viewMode, setViewMode] = useState("list");
+
+  useEffect(() => {
+    getEventos()
+      .then(setEventos)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Extraer categorías únicas de los eventos reales
+  const categorias = [
+    ...new Set(eventos.map((e) => e.categoria?.nombre).filter(Boolean)),
+  ];
+
+  // Asignar colores a cada categoría dinámicamente
+  const categoriaColors = {};
+  categorias.forEach((cat, i) => {
+    categoriaColors[cat] =
+      CATEGORIA_COLORS_DEFAULT[i % CATEGORIA_COLORS_DEFAULT.length];
+  });
 
   const currentYear = new Date().getFullYear();
   const years = [
@@ -98,15 +77,17 @@ const CalendarPage = () => {
     );
   };
 
-  const filteredEvents = EVENTOS_EJEMPLO.filter((e) => {
-    const d = new Date(e.fecha);
-    const matchMonth = d.getMonth() === selectedMonth;
-    const matchYear = d.getFullYear() === selectedYear;
-    const matchCat =
-      selectedCategories.length === 0 ||
-      selectedCategories.includes(e.categoria);
-    return matchMonth && matchYear && matchCat;
-  }).sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+  const filteredEvents = eventos
+    .filter((e) => {
+      const d = new Date(e.fecha);
+      const matchMonth = d.getMonth() === selectedMonth;
+      const matchYear = d.getFullYear() === selectedYear;
+      const catName = e.categoria?.nombre;
+      const matchCat =
+        selectedCategories.length === 0 || selectedCategories.includes(catName);
+      return matchMonth && matchYear && matchCat;
+    })
+    .sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
   const formatFecha = (fecha) =>
     new Date(fecha).toLocaleDateString("es-CR", {
@@ -148,17 +129,25 @@ const CalendarPage = () => {
   };
 
   const getEventsForDay = (day) => {
-    return EVENTOS_EJEMPLO.filter((e) => {
+    return eventos.filter((e) => {
       const d = new Date(e.fecha);
       const matchDay = d.getDate() === day;
       const matchMonth = d.getMonth() === selectedMonth;
       const matchYear = d.getFullYear() === selectedYear;
+      const catName = e.categoria?.nombre;
       const matchCat =
-        selectedCategories.length === 0 ||
-        selectedCategories.includes(e.categoria);
+        selectedCategories.length === 0 || selectedCategories.includes(catName);
       return matchDay && matchMonth && matchYear && matchCat;
     });
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen text-gray-400">
+        Cargando...
+      </div>
+    );
+  }
 
   return (
     <div className="py-12 px-4 mx-auto max-w-5xl md:px-8">
@@ -201,27 +190,29 @@ const CalendarPage = () => {
             </select>
           </div>
 
-          {/* Categorías */}
-          <div className="flex flex-wrap gap-2">
-            {CATEGORIAS.map((cat) => {
-              const active = selectedCategories.includes(cat);
-              const color = CATEGORIA_COLORS[cat];
-              return (
-                <button
-                  key={cat}
-                  onClick={() => toggleCategory(cat)}
-                  className="py-1.5 px-4 text-sm font-medium rounded-full border transition-colors"
-                  style={{
-                    borderColor: color,
-                    backgroundColor: active ? color : "transparent",
-                    color: active ? "white" : color,
-                  }}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
+          {/* Categorías dinámicas */}
+          {categorias.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {categorias.map((cat) => {
+                const active = selectedCategories.includes(cat);
+                const color = categoriaColors[cat];
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => toggleCategory(cat)}
+                    className="py-1.5 px-4 text-sm font-medium rounded-full border transition-colors"
+                    style={{
+                      borderColor: color,
+                      backgroundColor: active ? color : "transparent",
+                      color: active ? "white" : color,
+                    }}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           {/* Toggle vista */}
           <div className="flex overflow-hidden rounded-lg border border-gray-200">
@@ -255,57 +246,62 @@ const CalendarPage = () => {
       {viewMode === "list" && (
         <div className="space-y-4">
           {filteredEvents.length > 0 ? (
-            filteredEvents.map((evento) => (
-              <div
-                key={evento.id}
-                className="flex gap-5 items-start p-5 bg-white rounded-xl border border-gray-100 shadow-sm transition-shadow hover:shadow-md"
-              >
-                {/* Indicador de categoría */}
-                <div
-                  className="self-stretch w-1.5 rounded-full shrink-0"
-                  style={{
-                    backgroundColor: CATEGORIA_COLORS[evento.categoria],
-                  }}
-                />
+            filteredEvents.map((evento) => {
+              const catName = evento.categoria?.nombre;
+              const color = categoriaColors[catName] || "#6b7280";
+              return (
+                <Link
+                  to={`/vida-en-accion/${evento.slug ?? evento.documentId}`}
+                  key={evento.documentId || evento.id}
+                  className="flex gap-5 items-start p-5 bg-white rounded-xl border border-gray-100 shadow-sm transition-shadow hover:shadow-md"
+                >
+                  {/* Indicador de categoría */}
+                  <div
+                    className="self-stretch w-1.5 rounded-full shrink-0"
+                    style={{ backgroundColor: color }}
+                  />
 
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap gap-3 items-center mb-2">
-                    <span
-                      className="py-1 px-3 text-xs font-medium rounded-full"
-                      style={{
-                        backgroundColor: `${CATEGORIA_COLORS[evento.categoria]}15`,
-                        color: CATEGORIA_COLORS[evento.categoria],
-                      }}
-                    >
-                      {evento.categoria}
-                    </span>
-                    <span className="text-sm text-gray-400">
-                      {formatFecha(evento.fecha)}
-                    </span>
-                  </div>
-
-                  <h3 className="mb-1 text-lg font-bold text-gray-900">
-                    {evento.titulo}
-                  </h3>
-                  <p className="mb-3 text-sm text-gray-500">
-                    {evento.descripcion}
-                  </p>
-
-                  <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-                    <div className="flex gap-1.5 items-center">
-                      <Clock size={14} className="shrink-0" />
-                      <span>{formatHora(evento.fecha)}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap gap-3 items-center mb-2">
+                      {catName && (
+                        <span
+                          className="py-1 px-3 text-xs font-medium rounded-full"
+                          style={{
+                            backgroundColor: `${color}15`,
+                            color: color,
+                          }}
+                        >
+                          {catName}
+                        </span>
+                      )}
+                      <span className="text-sm text-gray-400">
+                        {formatFecha(evento.fecha)}
+                      </span>
                     </div>
-                    {evento.ubicacion && (
+
+                    <h3 className="mb-1 text-lg font-bold text-gray-900">
+                      {evento.titulo}
+                    </h3>
+                    <p className="mb-3 text-sm text-gray-500">
+                      {evento.descripcion}
+                    </p>
+
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-500">
                       <div className="flex gap-1.5 items-center">
-                        <MapPin size={14} className="shrink-0" />
-                        <span>{evento.ubicacion}</span>
+                        <Clock size={14} className="shrink-0" />
+                        <span>{formatHora(evento.fecha)}</span>
                       </div>
-                    )}
+                      {evento.ubicacion && (
+                        <div className="flex gap-1.5 items-center">
+                          <MapPin size={14} className="shrink-0" />
+                          <span>{evento.ubicacion}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))
+                </Link>
+              );
+            })
           ) : (
             <div className="py-16 text-center bg-gray-50 rounded-xl">
               <Calendar size={40} className="mx-auto mb-3 text-gray-300" />
@@ -356,7 +352,6 @@ const CalendarPage = () => {
 
           {/* Grilla de días */}
           <div className="grid grid-cols-7">
-            {/* Espacios vacíos antes del primer día */}
             {Array.from({ length: firstDay }).map((_, i) => (
               <div
                 key={`empty-${i}`}
@@ -364,7 +359,6 @@ const CalendarPage = () => {
               />
             ))}
 
-            {/* Días del mes */}
             {Array.from({ length: daysInMonth }).map((_, i) => {
               const day = i + 1;
               const dayEvents = getEventsForDay(day);
@@ -388,18 +382,21 @@ const CalendarPage = () => {
                     {day}
                   </span>
                   <div className="mt-1 space-y-1">
-                    {dayEvents.map((e) => (
-                      <div
-                        key={e.id}
-                        className="py-0.5 px-1.5 text-xs font-medium text-white rounded truncate"
-                        style={{
-                          backgroundColor: CATEGORIA_COLORS[e.categoria],
-                        }}
-                        title={e.titulo}
-                      >
-                        {e.titulo}
-                      </div>
-                    ))}
+                    {dayEvents.map((e) => {
+                      const catName = e.categoria?.nombre;
+                      const color = categoriaColors[catName] || "#6b7280";
+                      return (
+                        <Link
+                          to={`/vida-en-accion/${e.slug ?? e.documentId}`}
+                          key={e.documentId || e.id}
+                          className="block py-0.5 px-1.5 text-xs font-medium text-white rounded truncate hover:opacity-80"
+                          style={{ backgroundColor: color }}
+                          title={e.titulo}
+                        >
+                          {e.titulo}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               );
